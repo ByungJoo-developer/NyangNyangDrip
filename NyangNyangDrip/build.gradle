@@ -1,0 +1,44 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.6'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+	// 🌟 오라클 공식 저장소 추가
+    maven {
+        url "https://maven.oracle.com"
+        content {
+            includeGroup "com.oracle.database.jdbc"
+            includeGroup "com.oracle.database.security"
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.1'
+    
+	// 🌟 오라클 클라우드 지갑(Wallet) 연결을 위한 필수 세트
+    // ojdbc11: 데이터베이스 드라이버 본체
+	implementation 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
+    implementation 'com.oracle.database.security:oraclepki:23.3.0.23.09'
+    
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

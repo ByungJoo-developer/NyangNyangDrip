@@ -1,0 +1,10 @@
+package com.nyang.drip.board.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import java.util.Map;
+
+@Mapper // 🌟 이 어노테이션이 핵심입니다!
+public interface BoardMapper {
+    List<Map<String, Object>> selectBoardList();
+}

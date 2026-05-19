@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../../mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nyang.drip.mapper.BoardMapper">
+
+    <select id="selectBoardList" resultType="map">
+	<![CDATA[
+		SELECT B.BOARD_CATEGORY_ID, B.BOARD_ID, B.USER_ID   
+		FROM BOARD B 
+		WHERE ROWNUM < 10
+	]]>	
+    </select>
+
+</mapper>
