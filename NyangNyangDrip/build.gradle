@@ -34,7 +34,8 @@ dependencies {
 	implementation 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
     implementation 'com.oracle.database.security:oraclepki:23.3.0.23.09'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-    
+    implementation 'p6spy:p6spy:3.9.1'
+   
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

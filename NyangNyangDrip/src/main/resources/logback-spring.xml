@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <logger name="jdbc.connection" level="OFF" additivity="false"/>
-    <logger name="jdbc.audit" level="OFF" additivity="false"/>
-    <logger name="jdbc.statement" level="OFF" additivity="false"/>
-    <logger name="jdbc.resultset" level="OFF" additivity="false"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+				%d{HH:mm:ss.SSS} %-5level [%logger{36}] - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
 
-    <logger name="jdbc.sqlonly" level="INFO"/>
-    <logger name="jdbc.resultsettable" level="INFO"/>
+    <!-- 전체는 WARN -->
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- 내 앱만 DEBUG -->
+    <logger name="com.nyang.drip" level="DEBUG"/>
+
+    <!-- SQL -->
+    <logger name="p6spy" level="INFO"/>
+
+	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter"
+        level="DEBUG"/>
+
+
+    <!-- Spring MVC 요청 -->
+    <logger name="org.springframework.web" level="INFO"/>
+
 </configuration>

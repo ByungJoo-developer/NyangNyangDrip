@@ -21,12 +21,22 @@ public class BoardController {
     @Autowired
     private BoardService boardService; // 아까 만든 Service 주입받기
 
-    // 웹 브라우저나 Vue.js가 GET 방식으로 /api/board/list 주소를 요청하면 이 메서드가 실행됩니다.
+    /**
+     * 웹 브라우저나 Vue.js가 GET 방식으로 /api/board/list 주소를 요청하면 이 메서드가 실행됩니다.
+     * @param boardMstId	게시판 종류 아이디
+     * @param page			요청할 페이지 번호 (기본값: 1) 
+     * @param size			한 페이지당 보여줄 게시글 수 (기본값: 5)	
+     * @param title			검색할 제목 (선택)
+     * @param content		검색할 내용 (선택)
+     * @return				게시글 목록 데이터(List<Map<String, Object>>)
+     */
     @GetMapping("/list")
     public List<Map<String, Object>> getBoardList(
     		@RequestParam(value = "boardMstId", required = false) String boardMstId,
-    		@RequestParam(value = "page", defaultValue = "1") int page, // 몇 페이지인지
-    	    @RequestParam(value = "size", defaultValue = "5") int size // 한 페이지에 몇 개 볼지
+    	    @RequestParam(value = "title", defaultValue = "") String title,
+    	    @RequestParam(value = "content", defaultValue = "") String content,
+    		@RequestParam(value = "page", defaultValue = "1") int page, 				
+    	    @RequestParam(value = "size", defaultValue = "5") int size 				
     ) {
         
     	
@@ -35,6 +45,8 @@ public class BoardController {
     	
     	Map<String, Object> params = new HashMap<>();
     	params.put("boardMstId", boardMstId);
+    	params.put("title", 	 title);
+    	params.put("content", 	 content);
     	params.put("offset", 	 offset);
     	params.put("limit", 	 limit);
     	
@@ -43,6 +55,13 @@ public class BoardController {
     }
     
     
+    /**
+     * 특정 게시글의 상세 정보를 조회합니다.
+     * 
+     * @param boardMstId 게시판 마스터 아이디
+     * @param boardId    게시글 고유 아이디
+     * @return 게시글 상세 정보 데이터(Map<String, Object>)
+     */
     @GetMapping("/detail")
     public Map<String, Object> getBoardDetail(
     		@RequestParam(value = "boardMstId", required = false) String boardMstId,

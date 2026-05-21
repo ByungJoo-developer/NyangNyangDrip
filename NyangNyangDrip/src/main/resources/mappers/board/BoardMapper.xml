@@ -6,30 +6,32 @@
 
     <select id="selectBoardList" parameterType="map" resultType="map">
 	<![CDATA[
-		SELECT /*+ INDEX_DESC(B PK_BOARD) */ 
+		/* 게시판 리스트 조회 */
+		SELECT 	/*+ INDEX_DESC(B PK_BOARD) */ 
 				B.BOARD_MST_ID,
 				B.BOARD_ID,
 				B.USER_ID,
 				B.TITLE,
-				CAST(B.CONTENT AS VARCHAR2(4000)) AS CONTENT
+				B.CONTENT
         FROM ADMIN.BOARD B
-        WHERE B.BOARD_MST_ID = #{boardMstId}
+        WHERE B.BOARD_MST_ID = #{boardMstId}						/* 게시판 마스터 아이디 */
+
         ORDER BY B.BOARD_ID DESC
-        OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+        OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY			/* 페이징 처리 변수 */
 	]]>	
     </select>
     
     <select id="selectBoardDetail" parameterType="map" resultType="map">
 	<![CDATA[
+		/* 게시판 상세 데이터 조회 */
 		SELECT  B.BOARD_MST_ID,
 				B.BOARD_ID,
 				B.USER_ID,
 				B.TITLE,
-				CAST(B.CONTENT AS VARCHAR2(4000)) AS CONTENT
-        
+				B.CONTENT 
         FROM	ADMIN.BOARD B
-        WHERE 	B.BOARD_MST_ID = #{boardMstId}
-        AND   	B.BOARD_ID     = #{boardId} 
+        WHERE 	B.BOARD_MST_ID = #{boardMstId}	/* 게시판 마스터 아이디 */ 	
+        AND   	B.BOARD_ID     = #{boardId} 	/* 게시판 아이디 */
 	]]>	
     </select>
     

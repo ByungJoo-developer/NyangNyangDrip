@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+# Git 추적에서 제외
+src/main/resources/application-secret.properties
