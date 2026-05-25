@@ -12,10 +12,11 @@
 	           B.USER_ID,
 	           B.TITLE,
 	           B.CONTENT,
+	           TO_CHAR(B.CREATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
 	           TO_CHAR(B.UPDATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
 		       
 		       /* 오라클 서버 시간(TRUNC(SYSDATE))과 비교해서 오늘이면 Y, 아니면 N */
-		       CASE WHEN TRUNC(B.UPDATE_DATE) = TRUNC(SYSDATE) THEN 'Y' 
+		       CASE WHEN TRUNC(B.CREATE_DATE) = TRUNC(SYSDATE) THEN 'Y' 
 		            ELSE 'N' 
 		       END AS IS_TODAY
 	           
@@ -54,10 +55,11 @@
 				B.USER_ID,
 				B.TITLE,
 				B.CONTENT,
+				TO_CHAR(B.CREATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS CREATE_DATE,
 				TO_CHAR(B.UPDATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
 		       
 		       /* 오라클 서버 시간(TRUNC(SYSDATE))과 비교해서 오늘이면 Y, 아니면 N */
-		       CASE WHEN TRUNC(B.UPDATE_DATE) = TRUNC(SYSDATE) THEN 'Y' 
+		       CASE WHEN TRUNC(B.CREATE_DATE) = TRUNC(SYSDATE) THEN 'Y' 
 		            ELSE 'N' 
 		       END AS IS_TODAY
 				
