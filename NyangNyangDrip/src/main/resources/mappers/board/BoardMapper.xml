@@ -11,7 +11,14 @@
 	           B.BOARD_ID,
 	           B.USER_ID,
 	           B.TITLE,
-	           B.CONTENT
+	           B.CONTENT,
+	           TO_CHAR(B.UPDATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+		       
+		       /* 오라클 서버 시간(TRUNC(SYSDATE))과 비교해서 오늘이면 Y, 아니면 N */
+		       CASE WHEN TRUNC(B.UPDATE_DATE) = TRUNC(SYSDATE) THEN 'Y' 
+		            ELSE 'N' 
+		       END AS IS_TODAY
+	           
 	    FROM   (
 	            SELECT /*+ INDEX(BI IDX_01_BOARD_INVERTED) */ 
 	                   BI.BOARD_MST_ID, BI.BOARD_ID
@@ -46,7 +53,14 @@
 				B.BOARD_ID,
 				B.USER_ID,
 				B.TITLE,
-				B.CONTENT
+				B.CONTENT,
+				TO_CHAR(B.UPDATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
+		       
+		       /* 오라클 서버 시간(TRUNC(SYSDATE))과 비교해서 오늘이면 Y, 아니면 N */
+		       CASE WHEN TRUNC(B.UPDATE_DATE) = TRUNC(SYSDATE) THEN 'Y' 
+		            ELSE 'N' 
+		       END AS IS_TODAY
+				
         FROM ADMIN.BOARD B
         WHERE B.BOARD_MST_ID = #{boardMstId}						/* 게시판 마스터 아이디 */
 
@@ -62,7 +76,9 @@
 				B.BOARD_ID,
 				B.USER_ID,
 				B.TITLE,
-				B.CONTENT 
+				B.CONTENT,
+				TO_CHAR(B.UPDATE_DATE, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE
+
         FROM	ADMIN.BOARD B
         WHERE 	B.BOARD_MST_ID = #{boardMstId}	/* 게시판 마스터 아이디 */ 	
         AND   	B.BOARD_ID     = #{boardId} 	/* 게시판 아이디 */
